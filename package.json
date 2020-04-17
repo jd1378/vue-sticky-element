@@ -15,6 +15,16 @@
     "!src/serve-dev.*"
   ],
 
+  "keywords": [
+    "vue",
+    "sticky",
+    "element",
+    "sticky-element",
+    "sticky-component",
+    "sfc",
+    "component"
+  ],
+
   "scripts": {
     "serve": "vue-cli-service serve src/serve-dev.js",
     "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
