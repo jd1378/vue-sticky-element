@@ -2,6 +2,11 @@
 
 A simple vue sticky component wrapper that will stick to screen when scrolled past it. I made this because I found other libraries not doing what I exactly wanted.
 
+[![component in action](https://thumbs.gfycat.com/ConstantYearlyAxisdeer-size_restricted.gif)](https://gfycat.com/ConstantYearlyAxisdeer)
+
+
+[![Edit vue-sticky-element example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/nostalgic-dream-0cowy?fontsize=14&hidenavigation=1&theme=dark)
+
 ## usage
 
 ```bash
