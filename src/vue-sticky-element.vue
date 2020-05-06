@@ -35,6 +35,10 @@ export default {
       type: String,
       default: 'vue-sticky-element--show',
     },
+    hideClass: {
+      type: String,
+      default: 'vue-sticky-element--hide',
+    },
     transitionClass: {
       type: String,
       default: 'vue-sticky-element--transition',
@@ -50,6 +54,7 @@ export default {
       navbarShow: false,
       applyTransition: false,
       height: undefined,
+      forceHide: false,
     };
   },
   computed: {
@@ -64,9 +69,17 @@ export default {
     },
   },
   mounted() {
+    this.$root.$on('vse::hide', this.addHide);
+    this.$root.$on('vse::show', this.removeHide);
     this.height = this.$el.clientHeight;
   },
   methods: {
+    addHide() {
+      this.forceHide = true;
+    },
+    removeHide() {
+      this.forceHide = false;
+    },
     toggleStickiness(relativeScrollPosToElement, goingStickyDirection) {
       if (relativeScrollPosToElement < 0) {
         this.navbarStuck = false;
@@ -120,6 +133,7 @@ export default {
       'vue-sticky-element': true,
       [this.stuckClass]: this.navbarStuck,
       [this.showClass]: this.navbarShow,
+      [this.hideClass]: this.forceHide,
       [this.transitionClass]: this.applyTransition,
     };
 
@@ -178,5 +192,9 @@ export default {
 
 .vue-sticky-element--show {
   transform: translateY(0%);
+}
+
+.vue-sticky-element--hide {
+  transform: translateY(-100%) !important;
 }
 </style>
