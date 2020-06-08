@@ -8,13 +8,11 @@
   "browser": "dist/vue-sticky-element.esm.js",
   "module": "dist/vue-sticky-element.esm.js",
   "unpkg": "dist/vue-sticky-element.min.js",
-
   "files": [
     "dist/*",
     "src/**/*.vue",
     "!src/serve-dev.*"
   ],
-
   "keywords": [
     "vue",
     "sticky",
@@ -24,7 +22,6 @@
     "sfc",
     "component"
   ],
-
   "scripts": {
     "serve": "vue-cli-service serve src/serve-dev.js",
     "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
@@ -32,16 +29,13 @@
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife"
   },
-
   "repository": {
     "type": "git",
     "url": "git@github.com:jd1378/v-scroll-threshold.git"
   },
-
   "dependencies": {
     "v-scroll-threshold": "^2.0.0"
   },
-
   "devDependencies": {
     "@babel/core": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
