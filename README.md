@@ -98,6 +98,11 @@ Thank you if you are reading this
 
 ### Changelog
 
+
+#### 1.1.1
+
+updated some dev dep packages
+
 #### 1.1.0
 
 - It's now possible to force hide the sticky element using `this.$root.$emit('vse::hide')` and undo using `this.$root.$emit('vse::show')`
