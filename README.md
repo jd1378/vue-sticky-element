@@ -98,6 +98,9 @@ Thank you if you are reading this
 
 ### Changelog
 
+#### 1.1.2
+
+Fixed incorrect usage of `visibleOnDirection` prop in ReadMe, Thanks for spotting it @emrullahtastan
 
 #### 1.1.1
 
