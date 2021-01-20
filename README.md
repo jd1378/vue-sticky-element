@@ -65,9 +65,9 @@ if you want to change the default behaviour use the following properties
 
 ### properties
 
-#### `visibleOnDirection` - ['up','down','all'], default: 'up'
+#### `visibleOnDirection` - ['up','down','disabled'], default: 'up'
 
-should the hidden sticky element come into view when scrolling which direction ? if 'all' is used, element is displayed all the time
+should the hidden sticky element come into view when scrolling which direction ? if 'disabled' is used, element is displayed all the time
 
 #### `stickMode` - ['element-start', 'element-end'], default: 'element-end'
 
