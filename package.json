@@ -28,7 +28,8 @@
     "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "audit-fix": "npx cross-env npm_config_yes=true npx yarn-audit-fix"
   },
   "repository": {
     "type": "git",
@@ -45,6 +46,7 @@
     "@rollup/plugin-replace": "^2.3.4",
     "@vue/cli-plugin-babel": "^4.5.9",
     "@vue/cli-service": "^4.5.9",
+    "@vue/runtime-dom": "^3.2.37",
     "babel-eslint": "^10.1.0",
     "cross-env": "^7.0.3",
     "eslint": "^7.16.0",
