@@ -4,8 +4,8 @@ A simple vue sticky component wrapper that will stick to screen when scrolled pa
 
 [![component in action](https://thumbs.gfycat.com/SerpentinePortlyCow-size_restricted.gif)](https://gfycat.com/serpentineportlycow)
 
+[![Edit vue-sticky-element example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/vue-sticky-element-vue3-dzpd13?fontsize=14&hidenavigation=1&theme=dark)
 
-[![Edit vue-sticky-element example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/nostalgic-dream-0cowy?fontsize=14&hidenavigation=1&theme=dark)
 
 ## usage
 
