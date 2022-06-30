@@ -53,10 +53,6 @@ then use it:
 </template>
 ```
 
-### Important Note
-
-This component uses [scroll-threshold](https://www.npmjs.com/package/v-scroll-threshold) under the hood, make sure it is installed with it's default name if you are importing this component directly
-
 ### Default behaviour
 
 This component wraps the default slot of it with a fixed height div and makes the element stick to top of screen (out of view) using `position: fixed` whenever user scrolls past the element completely. then shows the element again if the user scrolls up a bit with a fast transition.
@@ -97,6 +93,11 @@ small part of the codes used in this component were taken from [vue-fixed-header
 Thank you if you are reading this
 
 ### Changelog
+
+#### 1.2.0
+
+add vue 3 support
+`$root` events are not supported on vue 3
 
 #### 1.1.2
 

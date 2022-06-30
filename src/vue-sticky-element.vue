@@ -1,9 +1,15 @@
 <script>
-// took from https://stackoverflow.com/questions/51065172/how-can-i-duplicate-slots-within-a-vuejs-render-function
+import { h as vueH, cloneVNode as vueCloneVNode, withDirectives } from 'vue';
+import VScrollThreshold from 'v-scroll-threshold';
+
 function cloneVNode(vnode, createElement) {
+  if (vueCloneVNode) return vueCloneVNode(vnode, {}); // vue 3
+
+  // vue 2 , took from https://stackoverflow.com/questions/51065172/how-can-i-duplicate-slots-within-a-vuejs-render-function
   const clonedChildren =
     vnode.children &&
     vnode.children.map((vnode) => cloneVNode(vnode, createElement));
+
   const cloned = createElement(vnode.tag, vnode.data, clonedChildren);
   cloned.text = vnode.text;
   cloned.isComment = vnode.isComment;
@@ -15,7 +21,38 @@ function cloneVNode(vnode, createElement) {
   cloned.key = vnode.key;
   return cloned;
 }
+
+function addDirectiveCompat(vnode, directives) {
+  if (typeof withDirectives === 'function') {
+    return withDirectives(vnode, directives);
+  } else {
+    return vnode;
+  }
+}
+
+function getDirectiveCompat(instance) {
+  const value = {
+    threshold: instance.stickWithElementStart ? 0 : instance.height || 0,
+    callback: instance.toggleStickiness,
+  };
+  const modifiers = {
+    [instance.visibleOnDirection]: true,
+  };
+  if (typeof withDirectives === 'function') {
+    return [VScrollThreshold, value, '', modifiers];
+  } else {
+    return {
+      name: 'scroll-threshold',
+      value,
+      modifiers,
+    };
+  }
+}
+
 export default {
+  directives: {
+    'scroll-threshold': VScrollThreshold,
+  },
   props: {
     visibleOnDirection: {
       type: String,
@@ -69,8 +106,10 @@ export default {
     },
   },
   mounted() {
-    this.$root.$on('vse::hide', this.addHide);
-    this.$root.$on('vse::show', this.removeHide);
+    if (typeof this.$root.$on === 'function') {
+      this.$root.$on('vse::hide', this.addHide);
+      this.$root.$on('vse::show', this.removeHide);
+    }
     this.height = this.$el.clientHeight;
   },
   methods: {
@@ -107,29 +146,21 @@ export default {
     },
   },
   render(h) {
-    const children = this.$slots.default;
+    const renderFunction = vueH ? vueH : h;
+    let children;
+    if ('$scopedSlots' in this) {
+      children = this.$scopedSlots.default(); // vue 2
+    } else if ('$slots' in this) {
+      children = this.$slots.default(); // vue 3
+    }
 
     if (!(children && children[0])) {
-      return h();
+      return vueH ? null : h(); // return null on vue 3
     }
 
-    const child = cloneVNode(children[0], h);
-    // Credits of few lines below goes to vue-fixed-header
-    child.data = child.data || { class: '' };
+    const child = cloneVNode(children[0], renderFunction);
 
-    if (typeof child.data.class === 'string') {
-      child.data.class = child.data.class.split(' ');
-    }
-
-    if (Array.isArray(child.data.class)) {
-      child.data.class = [...child.data.class].reduce(
-        (a, b) => ({ ...a, [b]: true }),
-        {}
-      );
-    }
-
-    child.data.class = {
-      ...child.data.class,
+    const classesToAdd = {
       'vue-sticky-element': true,
       [this.stuckClass]: this.navbarStuck,
       [this.showClass]: this.navbarShow,
@@ -137,38 +168,70 @@ export default {
       [this.transitionClass]: this.applyTransition,
     };
 
-    child.data.class = Object.entries(child.data.class)
-      .map(([k, v]) => (v ? k : null))
-      .filter((v) => v)
-      .join(' ');
+    if (child.props) {
+      // vue 3
+      if (!child.props.class) {
+        child.props.class = [];
+      } else if (typeof child.props.class === 'string') {
+        child.props.class = child.props.class.split(' ');
+      }
+      if (Array.isArray(child.props.class)) {
+        child.props.class = child.props.class.reduce((prev, current) => {
+          prev[current] = true;
+          return prev;
+        }, {});
+      }
 
-    // end of credit :)
-    if (!child.data.style) {
-      child.data.style = {};
+      child.props.class = {
+        ...child.props.class,
+        ...classesToAdd,
+      };
+
+      child.props.class = Object.entries(child.props.class)
+        .map(([k, v]) => (v ? k : null))
+        .filter((v) => v)
+        .join(' ');
+    } else if (child.data) {
+      // vue 2
+
+      if (!child.data.class) {
+        child.data.class = [];
+      } else if (typeof child.data.class === 'string') {
+        child.data.class = child.data.class.split(' ');
+      }
+      if (Array.isArray(child.data.class)) {
+        child.data.class = child.data.class.reduce((prev, current) => {
+          prev[current] = true;
+          return prev;
+        }, {});
+      }
+      child.data.class = {
+        ...child.data.class,
+        ...classesToAdd,
+      };
+
+      child.data.class = Object.entries(child.data.class)
+        .map(([k, v]) => (v ? k : null))
+        .filter((v) => v)
+        .join(' ');
     }
 
     const style = {};
-    const directives = [];
+    const directives = [getDirectiveCompat(this)];
     if (this.height) {
       style.height = `${this.height}px`;
-      directives.push({
-        name: 'scroll-threshold',
-        value: {
-          threshold: this.stickWithElementStart ? 0 : this.height,
-          callback: this.toggleStickiness,
-        },
-        modifiers: {
-          [this.visibleOnDirection]: true,
-        },
-      });
     }
-    return h(
-      'div',
-      {
-        style,
-        directives,
-      },
-      [child]
+
+    return addDirectiveCompat(
+      renderFunction(
+        'div',
+        {
+          style,
+          ...(typeof withDirectives !== 'function' ? { directives } : {}),
+        },
+        [child]
+      ),
+      directives
     );
   },
 };

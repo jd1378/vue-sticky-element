@@ -1,13 +1,11 @@
 <script>
-import Vue from 'vue';
 import VueStickyElement from '@/vue-sticky-element.vue';
 
-export default Vue.extend({
-  name: 'ServeDev',
+export default {
   components: {
     VueStickyElement,
   },
-});
+};
 </script>
 
 <template>
@@ -22,7 +20,7 @@ export default Vue.extend({
     </vue-sticky-element>
     <div
       v-for="i in 20"
-      :key="i"
+      :key="i + 'd'"
       style="margin: 1rem; background-color: #eaeaea; width: 40px; height: 40px"
     ></div>
   </div>

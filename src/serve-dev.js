@@ -1,10 +1,14 @@
-import Vue from 'vue';
+import Vue, { createApp } from 'vue';
 import Dev from '@/serve-dev.vue';
-import VScrollThreshold from 'v-scroll-threshold';
 
-Vue.use(VScrollThreshold);
-Vue.config.productionTip = false;
+if (!createApp) {
+  Vue.config.productionTip = false;
 
-new Vue({
-  render: (h) => h(Dev),
-}).$mount('#app');
+  new Vue({
+    render: (h) => h(Dev),
+  }).$mount('#app');
+} else {
+  const app = createApp(Dev);
+  app.config.productionTip = false;
+  app.mount('#app');
+}
