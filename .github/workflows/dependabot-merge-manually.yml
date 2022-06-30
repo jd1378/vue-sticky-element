@@ -1,0 +1,40 @@
+
+
+name: merge all dependabot pull requests
+
+on: workflow_dispatch
+
+jobs:
+  get_ids_job:
+    runs-on: ubuntu-latest
+    outputs:
+      html_urls: ${{ steps.get_pull_requests.outputs.html_urls }}
+    steps:
+    - id: get_pull_requests
+      uses: jd1378/filter_pull_requests_by_author@v2
+      with: 
+        token: ${{ secrets.GITHUB_TOKEN }}
+        author: app/dependabot
+        state: open
+        
+
+  merge:
+    needs: get_ids_job
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        html_urls: ${{fromJson(needs.get_ids_job.outputs.html_urls)}}
+
+    steps:
+        # Here the PR gets approved.
+      - name: Approve a PR
+        run: gh pr review --approve "$PR_URL"
+        env:
+          PR_URL: ${{ matrix.html_urls }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: merge pr id
+        run: gh pr merge --auto --merge "$PR_URL"
+        env: 
+          PR_URL: ${{ matrix.html_urls }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

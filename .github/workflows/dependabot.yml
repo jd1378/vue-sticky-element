@@ -1,0 +1,38 @@
+
+
+name: Dependabot auto-merge
+on: pull_request_target # use carefully
+
+permissions:
+  pull-requests: write
+  contents: write
+
+concurrency: merging_env
+
+jobs:
+  dependabot:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
+    steps:
+      # This first step will fail if there's no metadata and so the approval
+      # will not occur.
+      - name: Dependabot metadata
+        id: dependabot-metadata
+        uses: dependabot/fetch-metadata@v1.3.1
+        
+      # Here the PR gets approved.
+      - name: Approve a PR
+        run: gh pr review --approve "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      # Finally, this sets the PR to allow auto-merging for patch and minor
+      # updates if all checks pass
+      - name: Enable auto-merge for Dependabot PRs
+        if: ${{steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major'}}
+        run: gh pr merge --auto --merge "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
