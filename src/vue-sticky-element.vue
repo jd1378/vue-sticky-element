@@ -3,7 +3,7 @@ import { h as vueH, cloneVNode as vueCloneVNode, withDirectives } from 'vue';
 import VScrollThreshold from 'v-scroll-threshold';
 
 function cloneVNode(vnode, createElement) {
-  if (vueCloneVNode) return vueCloneVNode(vnode, {}); // vue 3
+  if (vueCloneVNode) return vueCloneVNode(vnode, { ...vnode.props }); // vue 3
 
   // vue 2 , took from https://stackoverflow.com/questions/51065172/how-can-i-duplicate-slots-within-a-vuejs-render-function
   const clonedChildren =

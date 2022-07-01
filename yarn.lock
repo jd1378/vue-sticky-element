@@ -8997,10 +8997,10 @@ uuid@^3.3.2, uuid@^3.4.0:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
 
-v-scroll-threshold@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/v-scroll-threshold/-/v-scroll-threshold-2.1.1.tgz#7251a3c0394886282c600f3d89eee263c637707f"
-  integrity sha512-Y35ojS++Hr+1WXbSFleGT1RjIlR46HyOV4CSn3zVwerdfasTPLz+0rVEl9RNMQQbJIyYYEGjJ+L406nIo6ByBg==
+v-scroll-threshold@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/v-scroll-threshold/-/v-scroll-threshold-2.1.2.tgz#2a04030d67a40340a612761cf6eddc8ed4ee89ce"
+  integrity sha512-iODNRJHdMARY6jtAkZcGdS+PMMar0mSlKoOL8cnsKLlabEYYpjZwJjC9/BM5HH41IAoXgaiBG/xqwGJOf6On7g==
 
 v8-compile-cache@^2.0.3:
   version "2.1.1"
@@ -9107,7 +9107,7 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue@2:
+vue@2.6:
   version "2.6.14"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.14.tgz#e51aa5250250d569a3fbad3a8a5a687d6036e235"
   integrity sha512-x2284lgYvjOMj3Za7kqzRcUSxBboHqtgRE2zlos1qWaOye5yUmHn42LB1250NJBLRwEcdrB0JRwyPTEPhfQjiQ==
