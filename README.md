@@ -96,6 +96,10 @@ Thank you if you are reading this
 
 ### Changelog
 
+#### 1.2.2
+
+fix a small issue with v-scroll-threshold directive and not passing child props to cloned element
+
 #### 1.2.1
 
 update readme
