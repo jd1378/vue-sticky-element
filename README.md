@@ -92,9 +92,11 @@ this should be the same amount of your transition duration if a custom class is 
 
 small part of the codes used in this component were taken from [vue-fixed-header](https://www.npmjs.com/package/vue-fixed-header) and [this answer on stackoverflow](https://stackoverflow.com/questions/51065172/how-can-i-duplicate-slots-within-a-vuejs-render-function) with some edits
 
-Thank you if you are reading this
-
 ### Changelog
+
+#### 1.2.3
+
+update npm tags
 
 #### 1.2.2
 
