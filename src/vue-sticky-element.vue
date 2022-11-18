@@ -120,7 +120,7 @@ export default {
       this.forceHide = false;
     },
     toggleStickiness(relativeScrollPosToElement, goingStickyDirection) {
-      if (relativeScrollPosToElement < 0) {
+      if (relativeScrollPosToElement <= 0) {
         this.navbarStuck = false;
         if (this.shouldApplyTransition) {
           this.$nextTick().then(() => {
