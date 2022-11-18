@@ -1,6 +1,6 @@
 {
   "name": "vue-sticky-element",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "A simple vue sticky component wrapper that will stick to screen when scrolled past it",
   "author": "jd1378",
   "license": "MIT",
