@@ -25,3 +25,9 @@ export default {
     ></div>
   </div>
 </template>
+
+<style>
+body {
+  margin: 0;
+}
+</style>

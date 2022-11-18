@@ -49,6 +49,10 @@ function getDirectiveCompat(instance) {
   }
 }
 
+function isMinusZero(value) {
+  if (Object.is(value, -0)) return true;
+}
+
 export default {
   directives: {
     'scroll-threshold': VScrollThreshold,
@@ -120,7 +124,10 @@ export default {
       this.forceHide = false;
     },
     toggleStickiness(relativeScrollPosToElement, goingStickyDirection) {
-      if (relativeScrollPosToElement < 0) {
+      if (
+        relativeScrollPosToElement < 0 ||
+        isMinusZero(relativeScrollPosToElement)
+      ) {
         this.navbarStuck = false;
         if (this.shouldApplyTransition) {
           this.$nextTick().then(() => {
