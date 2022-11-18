@@ -94,6 +94,10 @@ small part of the codes used in this component were taken from [vue-fixed-header
 
 ### Changelog
 
+#### 1.2.4
+
+unstuck at top of the page
+
 #### 1.2.3
 
 update npm tags
