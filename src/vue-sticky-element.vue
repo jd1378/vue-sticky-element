@@ -96,6 +96,7 @@ export default {
       applyTransition: false,
       height: undefined,
       forceHide: false,
+      observer: undefined,
     };
   },
   computed: {
@@ -114,7 +115,25 @@ export default {
       this.$root.$on('vse::hide', this.addHide);
       this.$root.$on('vse::show', this.removeHide);
     }
-    this.height = this.$el.clientHeight;
+    const fetchHeight = () => {
+      this.height = (this.$el.firstElementChild || this.$el).clientHeight;
+    };
+    if (window && 'ResizeObserver' in window) {
+      this.observer = new ResizeObserver(fetchHeight);
+      this.observer.observe(this.$el);
+    } else if (window) {
+      this.observer = () => setTimeout(fetchHeight, 10);
+      window.addEventListener('resize', this.observer);
+    }
+    fetchHeight();
+  },
+  // for vue 3
+  beforeUnmount() {
+    this.crossBeforeUnmount();
+  },
+  // for vue 2
+  beforeDestroy() {
+    this.crossBeforeUnmount();
   },
   methods: {
     addHide() {
@@ -149,6 +168,16 @@ export default {
         this.navbarShow = true;
       } else {
         this.navbarShow = false;
+      }
+    },
+    crossBeforeUnmount() {
+      if (this.observer) {
+        if ('disconnect' in this.observer) {
+          this.observer.disconnect();
+          this.observer = undefined;
+        } else {
+          window.removeEventListener('resize', this.observer);
+        }
       }
     },
   },

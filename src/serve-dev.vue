@@ -5,6 +5,16 @@ export default {
   components: {
     VueStickyElement,
   },
+  data() {
+    return {
+      hideSticky: false,
+    };
+  },
+  mounted() {
+    // setTimeout(() => {
+    //   this.hideSticky = true;
+    // }, 1000);
+  },
 };
 </script>
 
@@ -15,8 +25,11 @@ export default {
       :key="i"
       style="margin: 1rem; background-color: #eaeaea; width: 40px; height: 40px"
     ></div>
-    <vue-sticky-element>
-      <div style="background-color: red; width: 100%; height: 50px">test</div>
+    <vue-sticky-element v-if="!hideSticky">
+      <div style="background-color: red; width: 100%; padding: 15px">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, sit quod!
+        Excepturi reprehenderit maxime iste, quod illo recusandae cumque ratione
+      </div>
     </vue-sticky-element>
     <div
       v-for="i in 20"
