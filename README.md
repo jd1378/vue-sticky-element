@@ -94,6 +94,10 @@ small part of the codes used in this component were taken from [vue-fixed-header
 
 ### Changelog
 
+#### 1.2.5
+
+detect child element resize and update the height accordingly
+
 #### 1.2.4
 
 unstuck at top of the page
