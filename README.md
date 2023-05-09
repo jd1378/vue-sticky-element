@@ -8,7 +8,6 @@ Supports both vue-2 and vue-3
 
 [![Edit vue-sticky-element example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/vue-sticky-element-vue3-dzpd13?fontsize=14&hidenavigation=1&theme=dark)
 
-
 ## usage
 
 ```bash
@@ -37,7 +36,7 @@ export default {
 }
 ```
 
-then use it: 
+then use it:
 
 ```html
 <template>
@@ -57,7 +56,7 @@ then use it:
 
 ### Default behaviour
 
-This component wraps the default slot of it with a fixed height div and makes the element stick to top of screen (out of view) using `position: fixed` whenever user scrolls past the element completely. then shows the element again if the user scrolls up a bit with a fast transition.
+This component wraps the default slot of it with a fixed height div and makes the element stick to top of screen (out of view) using `position: fixed` whenever user scrolls past the element completely. then shows the element again if the user scrolls up a bit (adjustable by `scrollBackThreshold`) with a fast transition.
 
 if you want to change the default behaviour use the following properties
 
@@ -88,11 +87,21 @@ the class that is applied whenn the element is being moved into or out of view
 the transition duration of move transform. this is to wait before applying transition class, so the navbar doesn't glitch into screen when it's getting stuck.
 this should be the same amount of your transition duration if a custom class is used instead of the default one. changing this does not change the speed of navbar transition.
 
+#### `scrollBackThreshold` - default: 65
+
+When using this element as navbar, touch screen users will finding it very annoying when they hold their fingers on screen.
+because normally when you put your fingers on screen, it wobbles up and down, causing scroll to move up and down multiple times in a row.
+you can adjust how much user has to scroll back (along the `visibleOnDirection`) for the element to show.
+
 ### Credits
 
 small part of the codes used in this component were taken from [vue-fixed-header](https://www.npmjs.com/package/vue-fixed-header) and [this answer on stackoverflow](https://stackoverflow.com/questions/51065172/how-can-i-duplicate-slots-within-a-vuejs-render-function) with some edits
 
 ### Changelog
+
+#### 1.3.0
+
+add `scrollBackThreshold` to fix issue on touch screens.
 
 #### 1.2.5
 

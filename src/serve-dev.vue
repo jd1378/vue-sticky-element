@@ -32,7 +32,7 @@ export default {
       </div>
     </vue-sticky-element>
     <div
-      v-for="i in 20"
+      v-for="i in 50"
       :key="i + 'd'"
       style="margin: 1rem; background-color: #eaeaea; width: 40px; height: 40px"
     ></div>

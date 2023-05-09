@@ -34,6 +34,7 @@ function getDirectiveCompat(instance) {
   const value = {
     threshold: instance.stickWithElementStart ? 0 : instance.height || 0,
     callback: instance.toggleStickiness,
+    scrollBackThreshold: instance.scrollBackThreshold,
   };
   const modifiers = {
     [instance.visibleOnDirection]: true,
@@ -86,7 +87,17 @@ export default {
     },
     transitionDuration: {
       type: Number,
-      default: 100,
+      default: 50,
+    },
+    /** how much user has to scroll back in the opposite direction before element shows again.
+     * this is especially important on mobile devices, when user is holding touch on screen,
+     * which causes element to show and hide multiple times in a row.
+     *
+     * resets on scroll in opposite direction of `visibleOnDirection`
+     */
+    scrollBackThreshold: {
+      type: Number,
+      default: 65,
     },
   },
   data() {
@@ -97,6 +108,8 @@ export default {
       height: undefined,
       forceHide: false,
       observer: undefined,
+      lastScrollPos: undefined,
+      scrollBackValue: undefined,
     };
   },
   computed: {
