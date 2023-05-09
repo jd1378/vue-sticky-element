@@ -100,6 +100,7 @@ export default {
       default: 65,
     },
   },
+  emits: ['stuck', 'show'],
   data() {
     return {
       navbarStuck: false,
@@ -161,6 +162,7 @@ export default {
         isMinusZero(relativeScrollPosToElement)
       ) {
         this.navbarStuck = false;
+        this.$emit('stuck', false);
         if (this.shouldApplyTransition) {
           this.$nextTick().then(() => {
             this.applyTransition = false;
@@ -169,6 +171,7 @@ export default {
       } else if (relativeScrollPosToElement > 0) {
         this.height = this.$el.clientHeight;
         this.navbarStuck = true;
+        this.$emit('stuck', true);
         if (this.shouldApplyTransition) {
           this.$nextTick().then(() => {
             setTimeout(() => {
@@ -179,8 +182,10 @@ export default {
       }
       if (this.navbarStuck && (goingStickyDirection || this.alwaysStick)) {
         this.navbarShow = true;
+        this.$emit('show', true);
       } else {
         this.navbarShow = false;
+        this.$emit('show', false);
       }
     },
     crossBeforeUnmount() {

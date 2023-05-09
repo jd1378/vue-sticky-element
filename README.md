@@ -93,11 +93,25 @@ When using this element as navbar, touch screen users will finding it very annoy
 because normally when you put your fingers on screen, it wobbles up and down, causing scroll to move up and down multiple times in a row.
 you can adjust how much user has to scroll back (along the `visibleOnDirection`) for the element to show.
 
+### events
+
+#### `stuck`
+
+when stuck state changes
+
+#### `show`
+
+when show state changes
+
 ### Credits
 
 small part of the codes used in this component were taken from [vue-fixed-header](https://www.npmjs.com/package/vue-fixed-header) and [this answer on stackoverflow](https://stackoverflow.com/questions/51065172/how-can-i-duplicate-slots-within-a-vuejs-render-function) with some edits
 
 ### Changelog
+
+#### 1.4.0
+
+add `show` and `stuck` events.
 
 #### 1.3.0
 
