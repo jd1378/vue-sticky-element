@@ -105,6 +105,12 @@ export default {
       type: Boolean,
       default: false,
     },
+
+    /** force applies the show class */
+    forceShow: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['stuck', 'show'],
   data() {
@@ -224,7 +230,7 @@ export default {
     const classesToAdd = {
       'vue-sticky-element': true,
       [this.stuckClass]: this.navbarStuck,
-      [this.showClass]: this.navbarShow,
+      [this.showClass]: this.navbarShow || this.forceShow,
       [this.hideClass]: this.forceHide,
       [this.transitionClass]: this.applyTransition,
     };

@@ -97,6 +97,10 @@ you can adjust how much user has to scroll back (along the `visibleOnDirection`)
 
 When true, stops checking for scroll positions (essentially, does not do anything). this can help when you need to freeze and scroll the navbar.
 
+#### `forceShow` - default: false
+
+force applies the `showClass`.
+
 ### events
 
 #### `stuck`
@@ -112,6 +116,10 @@ when show state changes
 small part of the codes used in this component were taken from [vue-fixed-header](https://www.npmjs.com/package/vue-fixed-header) and [this answer on stackoverflow](https://stackoverflow.com/questions/51065172/how-can-i-duplicate-slots-within-a-vuejs-render-function) with some edits
 
 ### Changelog
+
+#### 1.6.0
+
+add `forceShow` prop.
 
 #### 1.5.0
 
