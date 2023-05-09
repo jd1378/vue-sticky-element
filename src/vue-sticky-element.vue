@@ -99,6 +99,12 @@ export default {
       type: Number,
       default: 65,
     },
+
+    /** When true, stops checking for scroll positions (essentially, does not do anything). this can help when you need to freeze and scroll the navbar. */
+    skipChecks: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['stuck', 'show'],
   data() {
@@ -157,6 +163,7 @@ export default {
       this.forceHide = false;
     },
     toggleStickiness(relativeScrollPosToElement, goingStickyDirection) {
+      if (this.skipChecks) return;
       if (
         relativeScrollPosToElement < 0 ||
         isMinusZero(relativeScrollPosToElement)
