@@ -40,7 +40,13 @@ export default {
 </template>
 
 <style>
-body {
+html {
+  overflow-x: hidden;
+}
+body,
+html {
   margin: 0;
+  padding: 0;
+  width: 100%;
 }
 </style>
