@@ -38,7 +38,7 @@
     "url": "git@github.com:jd1378/vue-sticky-element.git"
   },
   "dependencies": {
-    "v-scroll-threshold": "^2.2.0"
+    "v-scroll-threshold": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

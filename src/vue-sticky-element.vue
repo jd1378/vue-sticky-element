@@ -32,7 +32,7 @@ function addDirectiveCompat(vnode, directives) {
 
 function getDirectiveCompat(instance) {
   const value = {
-    threshold: instance.stickWithElementStart ? 0 : instance.height || 0,
+    threshold: instance.directiveThreshold,
     callback: instance.toggleStickiness,
     scrollBackThreshold: instance.scrollBackThreshold,
   };
@@ -53,6 +53,18 @@ function getDirectiveCompat(instance) {
 function isMinusZero(value) {
   if (Object.is(value, -0)) return true;
 }
+
+function debounce(func, timeout = 500) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
+}
+
+const evtOpts = { passive: true };
 
 export default {
   directives: {
@@ -135,6 +147,12 @@ export default {
     stickWithElementStart() {
       return this.stickMode === 'element-start';
     },
+    directiveThreshold() {
+      if (this.stickWithElementStart) {
+        return 0;
+      }
+      return this.height || 0;
+    },
   },
   mounted() {
     if (typeof this.$root.$on === 'function') {
@@ -148,8 +166,8 @@ export default {
       this.observer = new ResizeObserver(fetchHeight);
       this.observer.observe(this.$el);
     } else if (window) {
-      this.observer = () => setTimeout(fetchHeight, 10);
-      window.addEventListener('resize', this.observer);
+      this.observer = debounce(fetchHeight);
+      window.addEventListener('resize', this.observer, evtOpts);
     }
     fetchHeight();
   },
@@ -168,30 +186,36 @@ export default {
     removeHide() {
       this.forceHide = false;
     },
+    stick() {
+      this.height = this.$el ? this.$el.clientHeight : this.height;
+      this.navbarStuck = true;
+      this.$emit('stuck', true);
+      if (this.shouldApplyTransition) {
+        this.$nextTick().then(() => {
+          setTimeout(() => {
+            this.applyTransition = true;
+          }, this.transitionDuration);
+        });
+      }
+    },
+    unstuck() {
+      this.navbarStuck = false;
+      this.$emit('stuck', false);
+      if (this.shouldApplyTransition) {
+        this.$nextTick().then(() => {
+          this.applyTransition = false;
+        });
+      }
+    },
     toggleStickiness(relativeScrollPosToElement, goingStickyDirection) {
       if (this.skipChecks) return;
       if (
         relativeScrollPosToElement < 0 ||
         isMinusZero(relativeScrollPosToElement)
       ) {
-        this.navbarStuck = false;
-        this.$emit('stuck', false);
-        if (this.shouldApplyTransition) {
-          this.$nextTick().then(() => {
-            this.applyTransition = false;
-          });
-        }
+        this.unstuck();
       } else if (relativeScrollPosToElement > 0) {
-        this.height = this.$el.clientHeight;
-        this.navbarStuck = true;
-        this.$emit('stuck', true);
-        if (this.shouldApplyTransition) {
-          this.$nextTick().then(() => {
-            setTimeout(() => {
-              this.applyTransition = true;
-            }, this.transitionDuration);
-          });
-        }
+        this.stick();
       }
       if (this.navbarStuck && (goingStickyDirection || this.alwaysStick)) {
         this.navbarShow = true;
@@ -207,7 +231,7 @@ export default {
           this.observer.disconnect();
           this.observer = undefined;
         } else {
-          window.removeEventListener('resize', this.observer);
+          window.removeEventListener('resize', this.observer, evtOpts);
         }
       }
     },
