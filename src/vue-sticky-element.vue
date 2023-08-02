@@ -35,6 +35,7 @@ function getDirectiveCompat(instance) {
     threshold: instance.directiveThreshold,
     callback: instance.toggleStickiness,
     scrollBackThreshold: instance.scrollBackThreshold,
+    scrollElement: instance.scrollElement,
   };
   const modifiers = {
     [instance.visibleOnDirection]: true,
@@ -122,6 +123,12 @@ export default {
     forceShow: {
       type: Boolean,
       default: false,
+    },
+
+    /** the scroll element to use for attaching scroll event listeners to. this is mainly added to handle some cases with native applications. */
+    scrollElement: {
+      type: Object,
+      default: undefined,
     },
   },
   emits: ['stuck', 'show'],
