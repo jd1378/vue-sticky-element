@@ -101,6 +101,10 @@ When true, stops checking for scroll positions (essentially, does not do anythin
 
 force applies the `showClass`.
 
+#### `scrollElement` - default: undefined
+
+if specified, the `onscroll` event listener will be added to this element instead of window. this is useful for native apps where scrolling element might not be window.
+
 ### events
 
 #### `stuck`
@@ -116,6 +120,10 @@ when show state changes
 small part of the codes used in this component were taken from [vue-fixed-header](https://www.npmjs.com/package/vue-fixed-header) and [this answer on stackoverflow](https://stackoverflow.com/questions/51065172/how-can-i-duplicate-slots-within-a-vuejs-render-function) with some edits
 
 ### Changelog
+
+#### 1.7.0
+
+add `scrollElement` prop.
 
 #### 1.6.0
 
