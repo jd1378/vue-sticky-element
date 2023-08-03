@@ -107,13 +107,13 @@ The element to add `onscroll` event listener to instead of window. this is usefu
 
 ### events
 
-#### `stuck`
+#### `stuck` - `true` | `false`
 
-when stuck state changes
+when stuck state changes, emits the new value
 
-#### `show`
+#### `show` - `true` | `false`
 
-when show state changes
+when show state changes, emits the new value
 
 ### Credits
 
