@@ -125,7 +125,7 @@ export default {
       default: false,
     },
 
-    /** the scroll element to use for attaching scroll event listeners to. this is mainly added to handle some cases with native applications. */
+    /** The element to add `onscroll` event listener to instead of window. this is useful for native apps like ionic where scrolling element might not be window. this can be changed in runtime and the change will be detected, so for example you can get your element in `onMounted` [using `getScrollElement`](https://ionicframework.com/docs/api/content#getscrollelement) and you will be fine. */
     scrollElement: {
       type: Object,
       default: undefined,
