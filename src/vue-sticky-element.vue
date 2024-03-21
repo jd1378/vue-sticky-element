@@ -3,7 +3,7 @@ import {
   h as vueH,
   cloneVNode as vueCloneVNode,
   withDirectives,
-  PropType,
+  type PropType,
 } from 'vue';
 // @ts-expect-error no types defined
 import VScrollThreshold from 'v-scroll-threshold';
