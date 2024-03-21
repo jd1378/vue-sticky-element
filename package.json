@@ -7,6 +7,7 @@
   "type": "module",
   "main": "dist/vue-sticky-element.umd.js",
   "module": "dist/vue-sticky-element.es.mjs",
+  "types": "./dist/entry.d.ts",
   "exports": {
     ".": {
       "import": "./dist/vue-sticky-element.es.mjs",
@@ -16,6 +17,10 @@
     "./cjs": {
       "default": "./dist/vue-sticky-element.cjs.cjs",
       "types": "./dist/entry.d.ts"
+    },
+    "./vue": {
+      "default": "./src/vue-sticky-element.vue",
+      "types": "./dist/vue-sticky-element.vue.d.ts"
     }
   },
   "files": [
@@ -35,7 +40,7 @@
   ],
   "scripts": {
     "serve": "vite",
-    "build": "cross-env NODE_ENV=production vite build && vue-tsc -p ./tsconfig.vue.json",
+    "build": " cross-env NODE_ENV=production vite build && vue-tsc -p ./tsconfig.vue.json",
     "dev": "npm run serve",
     "preview": "vite preview --port 4173",
     "type-check": "vue-tsc --noEmit",

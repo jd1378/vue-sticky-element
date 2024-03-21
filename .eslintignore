@@ -23,4 +23,4 @@ dist-ssr
 *.sln
 *.sw?
 vite.config.ts.*
-vue-renderless-wizard*.tgz
+vue-sticky-element*.tgz

@@ -22,7 +22,7 @@ export default defineConfig({
     lib: {
       // Could also be a dictionary or array of multiple entry points
       entry: 'src/entry.ts',
-      name: 'VueRenderlessWizard',
+      name: 'VueStickyElement',
       formats: ['es', 'cjs', 'umd'],
       fileName(format) {
         let extension = 'js';
@@ -31,7 +31,7 @@ export default defineConfig({
         } else if (format === 'cjs') {
           extension = 'c' + extension;
         }
-        const fileName = `vue-renderless-wizard.${format}.${extension}`;
+        const fileName = `vue-sticky-element.${format}.${extension}`;
         return fileName;
       },
     },
@@ -44,8 +44,7 @@ export default defineConfig({
       external: ['vue'],
       output: {
         assetFileNames: (assetInfo) => {
-          if (assetInfo.name === 'entry.css')
-            return 'vue-renderless-wizard.css';
+          if (assetInfo.name === 'entry.css') return 'vue-sticky-element.css';
           return assetInfo.name as string;
         },
         exports: 'named',

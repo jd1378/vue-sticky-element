@@ -31,12 +31,16 @@ Vue.use(VStickyElement);
 
 // or:
 import StickyElement from 'vue-sticky-element';
+import 'vue-sticky-element/css';
 
 export default {
   components: {
     StickyElement
   }
 }
+
+// or you can install `v-scroll-threshold` as dependency and use the .vue import:
+import StickyElement from 'vue-sticky-element/vue';
 ```
 
 Then use it:
