@@ -1,17 +1,26 @@
 {
   "name": "vue-sticky-element",
-  "version": "1.7.0",
+  "version": "2.0.0",
   "description": "A simple vue sticky component wrapper that will stick to screen when scrolled past it",
   "author": "jd1378",
   "license": "MIT",
-  "main": "dist/vue-sticky-element.ssr.js",
-  "browser": "dist/vue-sticky-element.esm.js",
-  "module": "dist/vue-sticky-element.esm.js",
-  "unpkg": "dist/vue-sticky-element.min.js",
+  "type": "module",
+  "main": "dist/vue-sticky-element.umd.js",
+  "module": "dist/vue-sticky-element.es.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-sticky-element.es.mjs",
+      "require": "./dist/vue-sticky-element.umd.js",
+      "types": "./dist/entry.d.ts"
+    },
+    "./cjs": {
+      "default": "./dist/vue-sticky-element.cjs.cjs",
+      "types": "./dist/entry.d.ts"
+    }
+  },
   "files": [
     "dist/*",
-    "src/**/*.vue",
-    "!src/serve-dev.*"
+    "src/**/*.vue"
   ],
   "keywords": [
     "vue",
@@ -25,50 +34,60 @@
     "navbar"
   ],
   "scripts": {
-    "serve": "vue-cli-service serve src/serve-dev.js",
-    "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
-    "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
-    "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
-    "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife",
+    "serve": "vite",
+    "build": "cross-env NODE_ENV=production vite build && vue-tsc -p ./tsconfig.vue.json",
+    "dev": "npm run serve",
+    "preview": "vite preview --port 4173",
+    "type-check": "vue-tsc --noEmit",
+    "test": "vitest --dom run",
+    "coverage": "vitest --dom run --coverage",
     "prepublishOnly": "npm run build",
-    "audit-fix": "npx cross-env npm_config_yes=true npx yarn-audit-fix"
+    "lint": "eslint --ext \".js,.ts,.vue\" --ignore-path .gitignore ."
   },
   "repository": {
     "type": "git",
     "url": "git@github.com:jd1378/vue-sticky-element.git"
   },
-  "dependencies": {
-    "v-scroll-threshold": "^2.4.2"
-  },
   "devDependencies": {
-    "@babel/core": "^7.12.10",
-    "@babel/preset-env": "^7.12.11",
-    "@rollup/plugin-alias": "^2.2.0",
-    "@rollup/plugin-commonjs": "^11.0.1",
-    "@rollup/plugin-replace": "^2.3.4",
-    "@vue/cli-plugin-babel": "^5.0.8",
-    "@vue/cli-service": "^5.0.8",
-    "@vue/runtime-dom": "^3.2.37",
-    "babel-eslint": "^10.1.0",
+    "@typescript-eslint/eslint-plugin": "^7.3.1",
+    "@typescript-eslint/parser": "^7.3.1",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vitest/coverage-istanbul": "^0.31.4",
+    "@vue-macros/volar": "^0.9.8",
+    "@vue/eslint-config-typescript": "^13.0.0",
+    "@vue/test-utils": "^2.3.2",
+    "concurrently": "^8.0.1",
     "cross-env": "^7.0.3",
-    "eslint": "^7.16.0",
-    "eslint-config-prettier": "^7.1.0",
-    "eslint-loader": "^4.0.0",
-    "eslint-plugin-prettier": "^3.3.0",
-    "eslint-plugin-vue": "^7.4.0",
-    "minimist": "^1.2.0",
-    "prettier": "^2.2.1",
-    "rollup": "^1.27.13",
-    "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-terser": "^5.1.3",
-    "rollup-plugin-vue": "^5.1.9",
-    "vue": "^2.7.14",
-    "vue-template-compiler": "^2.7.7"
+    "es-module-lexer": "^1.2.1",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-prettier-vue": "^5.0.0",
+    "eslint-plugin-vue": "^9.23.0",
+    "globby": "^13.1.4",
+    "happy-dom": "^9.18.3",
+    "lodash": "^4.17.21",
+    "minimist": "^1.2.8",
+    "prettier": "^3.2.5",
+    "shiki": "^0.14.2",
+    "tslib": "^2.5.1",
+    "typescript": "^5.4.3",
+    "unplugin-vue-macros": "^2.1.7",
+    "vite": "^4.3.8",
+    "vitepress": "^1.0.0-alpha.75",
+    "vitest": "^0.31.1",
+    "vue": "^3.4.21",
+    "vue-eslint-parser": "^9.3.0",
+    "vue-live": "^2.5.3",
+    "vue-tsc": "^1.6.5"
   },
   "peerDependencies": {
     "vue": "^2.6.10 || >=3.0.0"
   },
   "engines": {
     "node": ">=8"
+  },
+  "dependencies": {
+    "v-scroll-threshold": "^2.4.2"
   }
 }

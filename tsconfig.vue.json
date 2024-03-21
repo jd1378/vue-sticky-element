@@ -1,0 +1,20 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "emitDeclarationOnly": true,
+    "outDir": "dist",
+    "rootDir": "./src"
+  },
+  "include": [
+    "./src/**/*",
+    "./src/**/*.vue"
+  ],
+  "exclude": ["node_modules", "dist"],
+  "vueCompilerOptions": {
+    "target": 3,
+    "plugins": [
+      "@vue-macros/volar/define-render"
+    ]
+  }
+}

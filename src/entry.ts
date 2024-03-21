@@ -1,11 +1,12 @@
 // Import vue component
 import component from '@/vue-sticky-element.vue';
+// @ts-expect-error doesn't matter
 import thresholdPlugin from 'v-scroll-threshold';
 
 // install function executed by Vue.use()
-const install = function installVueStickyElement(Vue) {
-  if (install.installed) return;
-  install.installed = true;
+const install = function installVueStickyElement(Vue: any) {
+  if ((install as any).installed) return;
+  (install as any).installed = true;
   Vue.component('VueStickyElement', component);
   Vue.use(thresholdPlugin);
 };
@@ -20,9 +21,9 @@ const plugin = {
 /* global window, global */
 let GlobalVue = null;
 if (typeof window !== 'undefined') {
-  GlobalVue = window.Vue;
+  GlobalVue = (window as any).Vue;
 } else if (typeof global !== 'undefined') {
-  GlobalVue = global.Vue;
+  GlobalVue = (global as any).Vue;
 }
 if (GlobalVue && GlobalVue.use) {
   GlobalVue.use(plugin);
@@ -34,6 +35,7 @@ component.install = install;
 
 // Export component by default
 export default component;
+export { component as VueStickyElement, install };
 
 // It's possible to expose named exports when writing components that can
 // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';

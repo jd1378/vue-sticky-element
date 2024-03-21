@@ -1,14 +1,20 @@
-<script>
-import { h as vueH, cloneVNode as vueCloneVNode, withDirectives } from 'vue';
+<script lang="ts">
+import {
+  h as vueH,
+  cloneVNode as vueCloneVNode,
+  withDirectives,
+  PropType,
+} from 'vue';
+// @ts-expect-error no types defined
 import VScrollThreshold from 'v-scroll-threshold';
 
-function cloneVNode(vnode, createElement) {
+function cloneVNode(vnode: any, createElement: any) {
   if (vueCloneVNode) return vueCloneVNode(vnode, { ...vnode.props }); // vue 3
 
   // vue 2 , took from https://stackoverflow.com/questions/51065172/how-can-i-duplicate-slots-within-a-vuejs-render-function
   const clonedChildren =
     vnode.children &&
-    vnode.children.map((vnode) => cloneVNode(vnode, createElement));
+    vnode.children.map((vnode: any) => cloneVNode(vnode, createElement));
 
   const cloned = createElement(vnode.tag, vnode.data, clonedChildren);
   cloned.text = vnode.text;
@@ -22,7 +28,7 @@ function cloneVNode(vnode, createElement) {
   return cloned;
 }
 
-function addDirectiveCompat(vnode, directives) {
+function addDirectiveCompat(vnode: any, directives: any) {
   if (typeof withDirectives === 'function') {
     return withDirectives(vnode, directives);
   } else {
@@ -30,7 +36,7 @@ function addDirectiveCompat(vnode, directives) {
   }
 }
 
-function getDirectiveCompat(instance) {
+function getDirectiveCompat(instance: any) {
   const value = {
     threshold: instance.directiveThreshold,
     callback: instance.toggleStickiness,
@@ -51,21 +57,24 @@ function getDirectiveCompat(instance) {
   }
 }
 
-function isMinusZero(value) {
+function isMinusZero(value: number) {
   if (Object.is(value, -0)) return true;
 }
 
-function debounce(func, timeout = 500) {
-  let timer;
-  return (...args) => {
+function debounce(func: (...any: any[]) => void, timeout = 500) {
+  let timer: any;
+  return (...args: any[]) => {
     clearTimeout(timer);
     timer = setTimeout(() => {
-      func.apply(this, args);
+      // eslint-disable-next-line prefer-spread
+      func.apply(null, args);
     }, timeout);
   };
 }
 
-const evtOpts = { passive: true };
+const evtOpts: AddEventListenerOptions & EventListenerOptions = {
+  passive: true,
+};
 
 export default {
   directives: {
@@ -73,14 +82,15 @@ export default {
   },
   props: {
     visibleOnDirection: {
-      type: String,
+      type: String as PropType<'up' | 'down' | 'disabled'>,
       default: 'up',
-      validator: (val) => ['up', 'down', 'disabled'].includes(val),
+      validator: (val: string) => ['up', 'down', 'disabled'].includes(val),
     },
     stickMode: {
-      type: String,
+      type: String as PropType<'element-end' | 'element-start'>,
       default: 'element-end',
-      validator: (val) => ['element-end', 'element-start'].includes(val),
+      validator: (val: string) =>
+        ['element-end', 'element-start'].includes(val),
     },
     stuckClass: {
       type: String,
@@ -127,7 +137,7 @@ export default {
 
     /** The element to add `onscroll` event listener to instead of window. this is useful for native apps like ionic where scrolling element might not be window. this can be changed in runtime and the change will be detected, so for example you can get your element in `onMounted` [using `getScrollElement`](https://ionicframework.com/docs/api/content#getscrollelement) and you will be fine. */
     scrollElement: {
-      type: Object,
+      type: Object as PropType<HTMLElement | undefined>,
       default: undefined,
     },
   },
@@ -139,7 +149,10 @@ export default {
       applyTransition: false,
       height: undefined,
       forceHide: false,
-      observer: undefined,
+      observer: undefined as
+        | undefined
+        | ResizeObserver
+        | ((...any: any[]) => void),
       lastScrollPos: undefined,
       scrollBackValue: undefined,
     };
@@ -162,19 +175,17 @@ export default {
     },
   },
   mounted() {
-    if (typeof this.$root.$on === 'function') {
-      this.$root.$on('vse::hide', this.addHide);
-      this.$root.$on('vse::show', this.removeHide);
-    }
     const fetchHeight = () => {
       this.height = (this.$el.firstElementChild || this.$el).clientHeight;
     };
-    if (window && 'ResizeObserver' in window) {
-      this.observer = new ResizeObserver(fetchHeight);
-      this.observer.observe(this.$el);
-    } else if (window) {
-      this.observer = debounce(fetchHeight);
-      window.addEventListener('resize', this.observer, evtOpts);
+    if (typeof window !== 'undefined') {
+      if ('ResizeObserver' in window) {
+        this.observer = new ResizeObserver(fetchHeight);
+        this.observer.observe(this.$el);
+      } else {
+        this.observer = debounce(fetchHeight);
+        (window as Window).addEventListener('resize', this.observer, evtOpts);
+      }
     }
     fetchHeight();
   },
@@ -193,7 +204,10 @@ export default {
     removeHide() {
       this.forceHide = false;
     },
-    toggleStickiness(relativeScrollPosToElement, goingStickyDirection) {
+    toggleStickiness(
+      relativeScrollPosToElement: number,
+      goingStickyDirection: boolean,
+    ) {
       if (this.skipChecks) return;
       if (
         relativeScrollPosToElement < 0 ||
@@ -237,17 +251,21 @@ export default {
       }
     },
   },
-  render(h) {
+  render(h: (...any: any[]) => void) {
+    // @ts-expect-error h function is not passed to render function in vue 3
     const renderFunction = vueH ? vueH : h;
     let children;
     if ('$scopedSlots' in this) {
-      children = this.$scopedSlots.default(); // vue 2
+      // @ts-expect-error vue 2
+      children = this.$scopedSlots.default();
     } else if ('$slots' in this) {
-      children = this.$slots.default(); // vue 3
+      // @ts-expect-error vue 3
+      children = this.$slots.default();
     }
 
     if (!(children && children[0])) {
-      return vueH ? null : h(); // return null on vue 3
+      // @ts-expect-error return null on vue 3
+      return vueH ? null : h();
     }
 
     const child = cloneVNode(children[0], renderFunction);
@@ -268,10 +286,13 @@ export default {
         child.props.class = child.props.class.split(' ');
       }
       if (Array.isArray(child.props.class)) {
-        child.props.class = child.props.class.reduce((prev, current) => {
-          prev[current] = true;
-          return prev;
-        }, {});
+        child.props.class = child.props.class.reduce(
+          (prev: any, current: any) => {
+            prev[current] = true;
+            return prev;
+          },
+          {},
+        );
       }
 
       child.props.class = {
@@ -292,10 +313,13 @@ export default {
         child.data.class = child.data.class.split(' ');
       }
       if (Array.isArray(child.data.class)) {
-        child.data.class = child.data.class.reduce((prev, current) => {
-          prev[current] = true;
-          return prev;
-        }, {});
+        child.data.class = child.data.class.reduce(
+          (prev: any, current: any) => {
+            prev[current] = true;
+            return prev;
+          },
+          {},
+        );
       }
       child.data.class = {
         ...child.data.class,
@@ -308,7 +332,7 @@ export default {
         .join(' ');
     }
 
-    const style = {};
+    const style: Record<string, string> = {};
     const directives = [getDirectiveCompat(this)];
     if (this.height) {
       style.height = `${this.height}px`;
@@ -321,9 +345,9 @@ export default {
           style,
           ...(typeof withDirectives !== 'function' ? { directives } : {}),
         },
-        [child]
+        [child],
       ),
-      directives
+      directives,
     );
   },
 };

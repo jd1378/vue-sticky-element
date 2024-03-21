@@ -1,23 +1,8 @@
-<script>
+<script setup lang="ts">
 import VueStickyElement from '@/vue-sticky-element.vue';
+import { ref } from 'vue';
 
-export default {
-  components: {
-    VueStickyElement,
-  },
-  data() {
-    return {
-      hideSticky: false,
-      scrollElement: undefined,
-    };
-  },
-  mounted() {
-    // setTimeout(() => {
-    //   this.hideSticky = true;
-    // }, 1000);
-    this.scrollElement = this.$refs.devdiv;
-  },
-};
+const hideSticky = ref(false);
 </script>
 
 <template>
