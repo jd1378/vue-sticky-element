@@ -4,6 +4,7 @@
 
 - migrated project to typescript
 - removed `vse::hide` and `vse::show`
+- BREAKING CHANGE: now you have to manually import css classes when using default export, OR you can opt in to use `vue-sticky-element/vue`
 
 ## 1.7.0
 
