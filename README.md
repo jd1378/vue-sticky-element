@@ -1,6 +1,10 @@
 # vue-sticky-element
 
-A simple vue sticky component wrapper that will stick to screen when scrolled past it. I made this because I found other libraries not doing what I exactly wanted.
+This component can help you:
+
+- Create a navbar that will stick to screen when scrolled past it
+- Hide navbar when scrolling down and show it when scrolling back up
+- Handles common bug of touch screen causing navbar to rapidly show/hide when holding your finger on screen
 
 Supports both vue-2 and vue-3
 
@@ -8,7 +12,7 @@ Supports both vue-2 and vue-3
 
 [![Edit vue-sticky-element example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/vue-sticky-element-vue3-dzpd13?fontsize=14&hidenavigation=1&theme=dark)
 
-## usage
+## Getting Started
 
 ```bash
 npm install vue-sticky-element
@@ -16,7 +20,7 @@ npm install vue-sticky-element
 yarn add vue-sticky-element
 ```
 
-then add it to your vue application:
+Then add it to your vue application:
 
 ```js
 // add it to your vue application:
@@ -25,8 +29,7 @@ import Vue from 'vue';
 
 Vue.use(VStickyElement);
 
-// or you can do this as well, but you should also add the v-scroll-threshold directive to your app, because its a dependency for this component:
-
+// or:
 import StickyElement from 'vue-sticky-element';
 
 export default {
@@ -36,7 +39,7 @@ export default {
 }
 ```
 
-then use it:
+Then use it:
 
 ```html
 <template>
@@ -58,33 +61,33 @@ then use it:
 
 This component wraps the default slot of it with a fixed height div and makes the element stick to top of screen (out of view) using `position: fixed` whenever user scrolls past the element completely. then shows the element again if the user scrolls up a bit (adjustable by `scrollBackThreshold`) with a fast transition.
 
-if you want to change the default behaviour use the following properties
+If you want to change the default behaviour use the following properties
 
 ### properties
 
 #### `visibleOnDirection` - ['up','down','disabled'], default: 'up'
 
-should the hidden sticky element come into view when scrolling which direction ? if 'disabled' is used, element is displayed all the time
+Should the hidden sticky element come into view when scrolling which direction ? if 'disabled' is used, element is displayed all the time
 
 #### `stickMode` - ['element-start', 'element-end'], default: 'element-end'
 
-should the element stick when element is out of view completely or as soon as it reaches the top of screen ?
+Should the element stick when element is out of view completely or as soon as it reaches the top of screen ?
 
 #### `stuckClass` - default: 'vue-sticky-element--stuck'
 
-the class that is applied when the element is stuck
+The class that is applied when the element is stuck
 
 #### `showClass` - default: 'vue-sticky-element--show'
 
-the class that is applied whenn the element should be moved into view (related to visibleOnDirection)
+The class that is applied whenn the element should be moved into view (related to visibleOnDirection)
 
 #### `transitionClass` - default: 'vue-sticky-element--transition'
 
-the class that is applied whenn the element is being moved into or out of view
+The class that is applied whenn the element is being moved into or out of view
 
 #### `transitionDuration` - default: 100
 
-the transition duration of move transform. this is to wait before applying transition class, so the navbar doesn't glitch into screen when it's getting stuck.
+The transition duration of move transform. this is to wait before applying transition class, so the navbar doesn't glitch into screen when it's getting stuck.
 this should be the same amount of your transition duration if a custom class is used instead of the default one. changing this does not change the speed of navbar transition.
 
 #### `scrollBackThreshold` - default: 65
@@ -99,7 +102,7 @@ When true, stops checking for scroll positions (essentially, does not do anythin
 
 #### `forceShow` - default: false
 
-force applies the `showClass`.
+Force applies the `showClass`.
 
 #### `scrollElement` - default: undefined
 
@@ -109,16 +112,16 @@ The element to add `onscroll` event listener to instead of window. this is usefu
 
 #### `stuck` - true | false
 
-when stuck state changes, emits the new value
+When stuck state changes, emits the new value
 
 #### `show` - true | false
 
-when show state changes, emits the new value
+When show state changes, emits the new value
 
 ### Credits
 
-small part of the codes used in this component were taken from [vue-fixed-header](https://www.npmjs.com/package/vue-fixed-header) and [this answer on stackoverflow](https://stackoverflow.com/questions/51065172/how-can-i-duplicate-slots-within-a-vuejs-render-function) with some edits
+Small part of the codes used in this component were taken from [vue-fixed-header](https://www.npmjs.com/package/vue-fixed-header) and [this answer on stackoverflow](https://stackoverflow.com/questions/51065172/how-can-i-duplicate-slots-within-a-vuejs-render-function) with some edits
 
 ### Changelog
 
-check [CHANGELOG.md](https://github.com/jd1378/vue-sticky-element/blob/master/CHANGELOG.md)
+Check [CHANGELOG.md](https://github.com/jd1378/vue-sticky-element/blob/master/CHANGELOG.md)
