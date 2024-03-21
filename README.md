@@ -55,11 +55,15 @@ Then use it:
 </template>
 ```
 
+---------------
+
 ### Default behaviour
 
 This component wraps the default slot of it with a fixed height div and makes the element stick to top of screen (out of view) using `position: fixed` whenever user scrolls past the element completely. then shows the element again if the user scrolls up a bit (adjustable by `scrollBackThreshold`) with a fast transition.
 
 If you want to change the default behaviour use the following properties
+
+---------------
 
 ### properties
 
@@ -106,6 +110,8 @@ Force applies the `showClass`.
 
 The element to add `onscroll` event listener to instead of window. this is useful for native apps like ionic where scrolling element might not be window. this can be changed in runtime and the change will be detected, so for example you can get your element in `onMounted` [using `getScrollElement`](https://ionicframework.com/docs/api/content#getscrollelement) and you will be fine.
 
+---------------
+
 ### events
 
 #### `stuck` - true | false
@@ -116,9 +122,13 @@ When stuck state changes, emits the new value
 
 When show state changes, emits the new value
 
+---------------
+
 ### Credits
 
 Small part of the codes used in this component were taken from [vue-fixed-header](https://www.npmjs.com/package/vue-fixed-header) and [this answer on stackoverflow](https://stackoverflow.com/questions/51065172/how-can-i-duplicate-slots-within-a-vuejs-render-function) with some edits
+
+---------------
 
 ### Changelog
 
