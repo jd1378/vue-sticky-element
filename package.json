@@ -18,6 +18,9 @@
       "default": "./dist/vue-sticky-element.cjs.cjs",
       "types": "./dist/entry.d.ts"
     },
+    "./css": {
+      "default": "./dist/vue-sticky-element.css"
+    },
     "./vue": {
       "default": "./src/vue-sticky-element.vue",
       "types": "./dist/vue-sticky-element.vue.d.ts"
