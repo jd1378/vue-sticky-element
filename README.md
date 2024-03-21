@@ -24,14 +24,8 @@ Then add it to your vue application:
 
 ```js
 // add it to your vue application:
-import VStickyElement from 'vue-sticky-element';
-import Vue from 'vue';
-
-Vue.use(VStickyElement);
-
-// or:
 import StickyElement from 'vue-sticky-element';
-import 'vue-sticky-element/css';
+import 'vue-sticky-element/css'; // this is required for default styles to work.
 
 export default {
   components: {
@@ -39,7 +33,7 @@ export default {
   }
 }
 
-// or you can install `v-scroll-threshold` as dependency and use the .vue import:
+// or you can use the .vue import:
 import StickyElement from 'vue-sticky-element/vue';
 ```
 
