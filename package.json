@@ -22,8 +22,7 @@
       "default": "./dist/vue-sticky-element.css"
     },
     "./vue": {
-      "default": "./src/vue-sticky-element.vue",
-      "types": "./dist/vue-sticky-element.vue.d.ts"
+      "default": "./src/vue-sticky-element.vue"
     }
   },
   "files": [
