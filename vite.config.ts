@@ -41,7 +41,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'src/entry.ts'),
       },
-      external: ['vue'],
+      external: ['vue', 'v-scroll-threshold'],
       output: {
         assetFileNames: (assetInfo) => {
           if (assetInfo.name === 'entry.css') return 'vue-sticky-element.css';
