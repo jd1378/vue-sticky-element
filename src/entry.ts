@@ -1,5 +1,5 @@
 // Import vue component
-import component from '@/vue-sticky-element.vue';
+import component from './vue-sticky-element.vue';
 // @ts-expect-error doesn't matter
 import thresholdPlugin from 'v-scroll-threshold';
 

@@ -27,11 +27,7 @@
     "declaration": true,
     "outDir": "dist",
     "declarationDir": "dist",
-
     "baseUrl": "./src",
-    "paths": {
-      "@/*": ["./*"],
-    }
   },
   "include": [
     "./**/*", // All non-hidden files at any directory level
