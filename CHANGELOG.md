@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.1
+
+- update v-scroll-threshold dependency to fix the issue of disappearing navbar when the page first time loads and top of screen is inside navbar threshold.
+
 ## 2.0.0
 
 - migrated project to typescript
