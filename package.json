@@ -1,6 +1,6 @@
 {
   "name": "vue-sticky-element",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A simple vue sticky component wrapper that will stick to screen when scrolled past it",
   "author": "jd1378",
   "license": "MIT",
@@ -56,7 +56,7 @@
     "url": "git@github.com:jd1378/vue-sticky-element.git"
   },
   "dependencies": {
-    "v-scroll-threshold": "^2.4.2"
+    "v-scroll-threshold": "^2.4.3"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.3.1",
