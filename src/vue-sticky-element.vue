@@ -176,7 +176,7 @@ export default {
   },
   mounted() {
     const fetchHeight = () => {
-      this.height = (this.$el.firstElementChild || this.$el).clientHeight;
+      this.height = this.$el.firstElementChild?.clientHeight;
     };
     if (typeof window !== 'undefined') {
       if ('ResizeObserver' in window) {
@@ -333,9 +333,13 @@ export default {
     }
 
     const style: Record<string, string> = {};
+    const flowFixStyle: Record<string, string> = {
+      'pointer-events': 'none',
+    };
     const directives = [getDirectiveCompat(this)];
     if (this.height) {
       style.height = `${this.height}px`;
+      flowFixStyle.height = `${this.height}px`;
     }
 
     return addDirectiveCompat(
@@ -345,7 +349,7 @@ export default {
           style,
           ...(typeof withDirectives !== 'function' ? { directives } : {}),
         },
-        [child],
+        [child, renderFunction('div', { style: flowFixStyle })],
       ),
       directives,
     );

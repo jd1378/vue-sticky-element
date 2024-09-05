@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.3
+
+- fix an issue where content would jump when navbar was stuck
+
 ## 2.0.2
 
 - update v-scroll-threshold dependency to fix a small issue with scrollBackThreshold

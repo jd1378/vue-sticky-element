@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import VueStickyElement from '@/vue-sticky-element.vue';
+import VueStickyElement from '../src/vue-sticky-element.vue';
 import { ref } from 'vue';
 
 const hideSticky = ref(false);
