@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.4
+
+- add type declarations for vue export
+
 ## 2.0.3
 
 - fix an issue where content would jump when navbar was stuck
